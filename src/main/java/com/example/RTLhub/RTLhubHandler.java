@@ -10,7 +10,6 @@ import java.util.List;
 
 @Slf4j
 @ChannelHandler.Sharable
-
 class RTLhubHandler extends SimpleChannelInboundHandler<String> {
     static final List<Channel> channels = new ArrayList<>();
     @Override
