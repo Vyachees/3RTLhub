@@ -1,25 +1,16 @@
 package com.example.RTLhub;
 
-/**
- * @author Vyacheslav Kirillov
- * @create 2022.10.31 20:34
- **/
-
-import java.util.ArrayList;
-import java.util.List;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
-import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
+@Slf4j
 @Component
 public final class RTLhub {
     // Port where chat server will listen for connections.
@@ -34,7 +25,7 @@ public final class RTLhub {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        public void initChannel(SocketChannel ch) throws Exception {
+                        public void initChannel(SocketChannel ch) {
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new StringDecoder());
                             p.addLast(new StringEncoder());
@@ -43,7 +34,7 @@ public final class RTLhub {
                     });
             // Start the server.
             ChannelFuture f = b.bind(PORT).sync();
-            System.out.println("Netty Server started.");
+            log.info("Netty Server started.");
             // Wait until the server socket is closed.
             f.channel().closeFuture().sync();
         } finally {
