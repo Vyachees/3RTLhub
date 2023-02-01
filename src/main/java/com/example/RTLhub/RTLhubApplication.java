@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RTLhubApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(RTLhubApplication.class, args);
-        MyNettyServer myNettyServer=new MyNettyServer(50004);
+        MyNettyServer myNettyServer=new MyNettyServer(9218);
         myNettyServer.run();
 
     }
